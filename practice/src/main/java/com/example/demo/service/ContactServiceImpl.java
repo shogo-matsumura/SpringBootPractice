@@ -7,16 +7,16 @@ import com.example.demo.entity.Contact;
 import com.example.demo.form.ContactForm;
 import com.example.demo.repository.ContactRepository;
 
-@Service
-public class ContactServiceImpl implements ContactService {
-	
+    @Service
+    public class ContactServiceImpl implements ContactService {
+
 	@Autowired
-private ContactRepository contactRepository;
-	
-    @Override
+	private ContactRepository contactRepository;
+
+	@Override
 	public void saveContact(ContactForm contactForm) {
 		Contact contact = new Contact();
-		
+
 		contact.setLastName(contactForm.getLastName());
 		contact.setFirstName(contactForm.getFirstName());
 		contact.setEmail(contactForm.getEmail());
@@ -27,9 +27,6 @@ private ContactRepository contactRepository;
 		contact.setContactType(contactForm.getContactType());
 		contact.setBody(contactForm.getBody());
 
-
 		contactRepository.save(contact);
-		
 	}
-
 }
