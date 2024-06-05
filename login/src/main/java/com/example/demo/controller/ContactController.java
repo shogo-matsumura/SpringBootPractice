@@ -77,17 +77,15 @@ public class ContactController {
 		if (errorResult.hasErrors()) {
 			return "contactForm";
 		}
-
 		HttpSession session = request.getSession();
 		session.setAttribute("contactForm", contactForm);
-
 		return "confirmation";
 	}
 
 	@PostMapping("/confirmation")
 	public String confirm(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		ContactsForm contactsForm = (ContactsForm) session.getAttribute("contactsForm"); // 修正: 正しいクラス名を使用
+		ContactsForm contactsForm = (ContactsForm) session.getAttribute("contactForm"); // 修正: 正しいクラス名を使用
 
 		if (contactsForm != null) {
 			Contact contact = new Contact();
@@ -125,5 +123,4 @@ public class ContactController {
 	public String logout() {
 		return "redirect:/admin/signin";
 	}
-
 }

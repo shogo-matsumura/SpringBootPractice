@@ -12,37 +12,38 @@ import com.example.demo.service.UserService;
 
 import jakarta.validation.Valid;
 
-@Controller
-public class SigninController {
+    @Controller
+    public class SigninController {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    public SigninController(UserService userService) {
-        this.userService = userService;
-    }
+	public SigninController(UserService userService) {
+		this.userService = userService;
+	}
 
-    @GetMapping("/admin/signin")
-    public String showsigninForm(Model model) {
-        model.addAttribute("signinForm", new SigninForm());
-        return "signin";
-    }
+	@GetMapping("/admin/signin")
+	public String showsigninForm(Model model) {
+		model.addAttribute("signinForm", new SigninForm());
+		return "signin";
+	}
 
-    @PostMapping("/admin/contacts")
-    public String signin(@Valid SigninForm form, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("signinForm", form);
-            return "signin";
-        }
+	@PostMapping("/admin/contacts")
+	public String signin(@Valid SigninForm form, BindingResult result, RedirectAttributes redirectAttributes,
+			Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("signinForm", form);
+			return "signin";
+		}
 
-        String email = form.getEmail();
-        String password = form.getPassword();
-        String message = userService.authenticateUser(email, password);
-        if ("Authenticated User".equals(message)) {
-            redirectAttributes.addFlashAttribute("successMessage", "Logged in successfully!");
-            return "redirect:/admin/contacts";
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", message);
-            return "redirect:/admin/signin";
-        }
-    }
+		String email = form.getEmail();
+		String password = form.getPassword();
+		String message = userService.authenticateUser(email, password);
+		if ("Authenticated User".equals(message)) {
+			redirectAttributes.addFlashAttribute("successMessage", "Logged in successfully!");
+			return "redirect:/admin/contacts";
+		} else {
+			redirectAttributes.addFlashAttribute("errorMessage", message);
+			return "redirect:/admin/signin";
+		}
+	}
 }
