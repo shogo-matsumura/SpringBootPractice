@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>管理者の新規登録画面</title>
+</head>
+
+<body>
+	<h2>管理者の新規登録画面</h2>
+	<!-- エラーメッセージを表示 -->
+	<div th:if="${errorMessage}" class="alert alert-danger">
+		<p th:text="${errorMessage}"></p>
+	</div>
+	<!-- 成功メッセージを表示 -->
+	<div th:if="${successMessage}" class="alert alert-success">
+		<p th:text="${successMessage}"></p>
+	</div>
+	<form th:action="@{/admin/signup}" method="post" th:object="${signupForm}">
+		<table>
+			<tr>
+				<th>姓</th>
+				<td>
+					<input type="text" th:field="*{lastName}" />
+					<div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">姓エラー</div>
+				</td>
+			</tr>
+			<tr>
+				<th>名</th>
+				<td>
+					<input type="text" th:field="*{firstName}" />
+					<div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">名エラー</div>
+				</td>
+			</tr>
+			<tr>
+				<th>メールアドレス</th>
+				<td>
+					<input type="text" th:field="*{email}" />
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}">メールアドレスエラー</div>
+				</td>
+			</tr>
+			<tr>
+				<th>パスワード</th>
+				<td>
+					<input type="password" th:field="*{password}" />
+					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">パスワードエラー</div>
+				</td>
+			</tr>
+		</table>
+		<div>
+			<input type="submit" value="登録する" />
+		</div>
+	</form>
+	<a th:href="@{/signin}">ログイン画面</a>
+</body>
+
+</html>
